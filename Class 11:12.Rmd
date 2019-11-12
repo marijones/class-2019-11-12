@@ -1,0 +1,28 @@
+---
+title: "Class 11/12"
+author: "Mari Jones"
+date: "11/12/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(googlesheets4)
+library(tidyverse)
+library(ggplot2)
+```
+
+```{r}
+sheets_deauth()
+
+election <- read_sheet("13NhlT-Oik5P4NOKRWwrJ7xZQlddFNk81HHEw9wkWglM")
+
+election %>%
+  ggplot(aes(partisanship, dvote)) + 
+  geom_jitter(height = 0.2, color = "purple", size = .5) +
+  geom_smooth(method = lm, se = FALSE)
+
+
+lm(data = election, dvote ~ partisanship)
+```
+
